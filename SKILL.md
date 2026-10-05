@@ -54,6 +54,17 @@ this skill mechanically; it holds because the session follows it.
 1. Explore and decide first. A brief contains decisions, not options. If you're
    still weighing alternatives, you're not ready to delegate.
 
+   **Work out the edge cases per requirement before any brief goes out.** An
+   implementer builds exactly what the brief says, so a case the brief misses is
+   a case nobody handles. For each acceptance criterion, ask what happens when the
+   state it depends on changes over time: the user upgrades and then downgrades,
+   the record is edited after it was used, the job runs twice, fails halfway, or
+   does not run for a day, the admin changes the config while work is in flight.
+   Words like "for good", "once", "never", "until", "only new" are where these
+   hide. Write each case and its decided behaviour as a table in the run's
+   decision log before writing the briefs, and carry the relevant rows into each
+   brief's Design.
+
    **Scope every slice to a user-reachable outcome, not to a layer.** A slice that
    ends at "the endpoint returns it" is not done. Backend tests assert the
    response and frontend tests mock it, so nothing in CI notices that no one can
@@ -90,10 +101,22 @@ this skill mechanically; it holds because the session follows it.
    Design: <the decided approach: data flow, names, signatures, edge cases; the
      nearest existing pattern to mirror (grain) and the minimal root-cause change,
      no speculative scope (ponytail)>
+   Tests: <for each acceptance criterion and edge case this slice implements,
+     one test that runs the real code path that enforces it. A query that
+     decides who or what is affected gets a test against a real database, not a
+     mock of itself>
    Constraints: <project rules that apply: style, layers, security>
    Out of scope: <what not to touch, including files owned by other slices>
    Verify: <exact commands and expected outcome>
    ```
+
+   **Brief behaviour, not code lines.** Signatures and names belong in Design;
+   expressions do not. "Edit only steps whose body is a single html block, and
+   refuse the others with a message" lets the implementer see the case. A
+   dictated expression like `step.blocks[0]?.html` hides it, and the implementer
+   will type it faithfully. Never give an implementer a way out of testing
+   ("add a test only if a sibling pattern exists"): name the test, or name the
+   sibling it mirrors.
 
 3. Route the slice to an implementer by its **shape**.
 
@@ -188,6 +211,12 @@ this skill mechanically; it holds because the session follows it.
   is chosen up front for a hard slice, never reached as the third attempt at an
   easy one. If a slice has failed twice, the brief is the defect and a bigger
   model will just implement the same misunderstanding more fluently.
+- **Check the whole change against the requirement before you call it done.**
+  Diff review checks each slice against its brief, so a defect in the brief
+  passes it. Once every slice is in, read the full diff against the original
+  issue, not against the briefs, and write each acceptance criterion and each
+  edge-case row as met, partial or missed with the `file:line` that shows it.
+  Anything not met is a new brief to the same worker, before the last CI round.
 - **Gates are the safety net.** Before accepting any implementer's diff, run the
   scoped checks yourself: the touched tests, the linter on the touched files, and
   whatever convention script the repo carries. Do not take the worker's word that

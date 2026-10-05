@@ -43,18 +43,23 @@ That line matters more than it looks. A skill the model has to decide to load is
 
 Everything the pattern rests on. A brief carries decisions, not options: if you are still weighing two approaches, you are not ready to delegate.
 
+Before any brief goes out, the architect works out each requirement's edge cases: what happens when the state it depends on changes over time (the user pays and then cancels, a record is edited after it was used, a job runs twice). The worker builds exactly what the brief says, so a case the brief misses is a case nobody handles.
+
 ```
 ## Implementation brief: <slice>
 Goal: one sentence, observable outcome
 Context: what exploration found: excerpts, the pattern to mirror, line anchors, gotchas
 Files: paths to create/modify, exclusive ownership for this slice
 Design: the decided approach: data flow, names, signatures, edge cases
+Tests: one test per requirement and edge case, on the real code path
 Constraints: project rules that apply: style, layers, security
 Out of scope: what not to touch, including files owned by other slices
 Verify: exact commands and expected outcome
 ```
 
 The worker starts with an empty context window. Anything not in the brief it has to rediscover or guess, and rediscovery is what the pattern is trying to stop paying for.
+
+Brief behaviour, not code lines. A dictated expression hides the case it gets wrong, and the worker types it faithfully. Once every slice is in, the architect reads the whole diff against the original requirement, not against the briefs, because diff review against a brief passes a defect that is in the brief.
 
 ## Routing
 
