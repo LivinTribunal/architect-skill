@@ -36,7 +36,6 @@ That line matters more than it looks. A skill the model has to decide to load is
 | `SKILL.md` | The skill: division of labor, the brief template, the routing table, context hygiene, the review loop |
 | `agents/sonnet-implementer.md` | The default worker. Rote work, briefed backend work, frontend work with an existing design grammar, shared-API-surface changes |
 | `agents/opus-implementer.md` | For slices whose difficulty is in the reasoning, chosen up front and never as a retry |
-| `agents/opus-implementer-xhigh.md` | The same, at xhigh effort, for concurrency, security-sensitive paths and tricky algorithms |
 | `hooks/architect-guard.sh` | Optional. Raises a permission prompt when the main loop edits a source file on a Fable session |
 
 ## The brief
@@ -71,7 +70,7 @@ By shape, never by risk tier.
 | Backend work against a detailed brief with tests to satisfy | `sonnet-implementer` |
 | Frontend work that follows an existing design grammar | `sonnet-implementer` |
 | Any slice that changes a shared API surface and must fix every consumer | `sonnet-implementer` |
-| Genuinely hard: async correctness, a subtle multi-site refactor, a perf-critical or security-sensitive path, a non-obvious algorithm, a backfill no single test proves | `opus-implementer`, `-xhigh` for the worst |
+| Genuinely hard: async correctness, a subtle multi-site refactor, a perf-critical or security-sensitive path, a non-obvious algorithm, a backfill no single test proves | `opus-implementer` |
 | Design, decomposition, briefs, diff review, gates, commits, prose | the architect, in the main loop |
 
 Risk changes how hard the diff is reviewed and who signs it off. It never changes who writes it. A high-risk path that the brief fully specifies still goes to the cheap worker, read line by line afterwards.
