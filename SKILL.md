@@ -126,7 +126,7 @@ this skill mechanically; it holds because the session follows it.
    | Backend work against a detailed brief with tests to satisfy | `sonnet-implementer` |
    | Frontend work that follows an existing design grammar | `sonnet-implementer` |
    | Any slice that changes a shared API surface and must fix every consumer | `sonnet-implementer` |
-   | Genuinely hard: concurrency/async correctness, a subtle multi-site refactor, a perf-critical or security-sensitive path, a non-obvious algorithm, a backfill migration no single test file can prove | `opus-implementer`, `-xhigh` for the worst |
+   | Genuinely hard: concurrency/async correctness, a subtle multi-site refactor, a perf-critical or security-sensitive path, a non-obvious algorithm, a backfill migration no single test file can prove | `opus-implementer` |
    | Design, decomposition, briefs, diff review, gates, commits, prose | the architect, in the main loop |
 
    **Route by shape, never by risk tier.** What replaces the tier is the review,
